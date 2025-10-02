@@ -37,4 +37,4 @@ This project was created as part of **Coding Camp** to practice core skills of a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/CodingCamp-290925-syafarulpriwantoro.git
+   git clone https://github.com/farul1/CodingCamp-290925-syafarulpriwantoro.git
