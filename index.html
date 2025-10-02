@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="css/style.css">
+     <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>To-Do List By Farul</h1>
+            <div class="theme-select-container">
+                <span class="theme-select-label">Theme:</span>
+                <select id="theme-select" class="theme-select">
+                    <option value="light">🌞 Light</option>
+                    <option value="dark">🌙 Dark</option>
+                    <option value="halloween">🎃 Halloween</option>
+                    <option value="ocean">🌊 Ocean</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>TOTAL TASKS</h3>
+                <div class="count" id="total-tasks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>COMPLETED</h3>
+                <div class="count" id="completed-tasks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>PENDING</h3>
+                <div class="count" id="pending-tasks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>IN PROGRESS</h3>
+                <div class="count" id="progress-tasks">0</div>
+            </div>
+        </div>
+
+        <div class="todo-form">
+            <form id="add-todo-form">
+                <div class="form-group">
+                    <label for="task-input">Add a todo...</label>
+                    <input type="text" id="task-input" class="form-control" placeholder="Enter your task..." required>
+                </div>
+                <div class="form-group">
+                    <label for="due-date">Due Date</label>
+                    <input type="date" id="due-date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" class="form-control" required>
+                        <option value="pending">⏳ Pending</option>
+                        <option value="progress">🚀 In Progress</option>
+                        <option value="completed">✅ Completed</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span>➕</span>
+                    Add Task
+                </button>
+            </form>
+        </div>
+
+        <div class="search-filter-container">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" class="form-control" placeholder="Search tasks... (Ctrl+F)">
+            </div>
+            <div class="filter-sort-container">
+                <select id="filter-status">
+                    <option value="all">📋 All Tasks</option>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="progress">🚀 In Progress</option>
+                    <option value="completed">✅ Completed</option>
+                </select>
+                <select id="sort-tasks">
+                    <option value="newest">🆕 Newest First</option>
+                    <option value="oldest">📜 Oldest First</option>
+                    <option value="due-date">📅 Due Date</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="todo-list-container">
+            <div class="todo-list-header">
+                <div>TASK</div>
+                <div>DUE DATE</div>
+                <div>STATUS</div>
+                <div class="actions-header">ACTIONS</div>
+            </div>
+            <div id="todo-list">
+                <div class="empty-state">No tasks found. Add your first task above! 📝</div>
+            </div>
+        </div>
+        
+        <div class="footer-actions">
+            <button id="delete-all" class="btn btn-danger">
+                <span>🗑️</span>
+                DELETE ALL TASKS
+            </button>
+            <div class="social-links">
+                <a href="https://www.instagram.com/syafarul__" target="_blank" title="Instagram">
+                    <img src="images/instagram.png" alt="Instagram" class="social-icon">
+                </a>
+                <a href="https://github.com/farul1" target="_blank" title="GitHub">
+                    <img src="images/github.png" alt="GitHub" class="social-icon">
+                </a>
+                <a href="https://www.linkedin.com/in/syafarul-priwantoro" target="_blank" title="LinkedIn">
+                    <img src="images/linkedin.png" alt="LinkedIn" class="social-icon">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="edit-todo-form">
+                <div class="form-group">
+                    <label for="edit-task-input">Task</label>
+                    <input type="text" id="edit-task-input" class="form-control" placeholder="Enter your task..." required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-due-date">Due Date</label>
+                    <input type="date" id="edit-due-date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-status">Status</label>
+                    <select id="edit-status" class="form-control" required>
+                        <option value="pending">⏳ Pending</option>
+                        <option value="progress">🚀 In Progress</option>
+                        <option value="completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="cancel-edit">
+                        <span>✕</span>
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <span>💾</span>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="confirm-modal" id="delete-modal">
+        <div class="confirm-modal-content">
+            <div class="confirm-modal-header">
+                <div class="confirm-modal-icon">⚠️</div>
+                <h3 class="confirm-modal-title">Delete Confirmation</h3>
+                <p class="confirm-modal-subtitle">Please confirm your action</p>
+            </div>
+            <div class="confirm-modal-body">
+                <p class="confirm-modal-message" id="delete-message"></p>
+                <p class="confirm-modal-warning" id="delete-warning"></p>
+            </div>
+            <div class="confirm-modal-footer">
+                <button class="confirm-btn confirm-btn-cancel" id="cancel-delete">
+                    <span>✕</span>
+                    Cancel
+                </button>
+                <button class="confirm-btn confirm-btn-delete" id="confirm-delete">
+                    <span>🗑️</span>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
